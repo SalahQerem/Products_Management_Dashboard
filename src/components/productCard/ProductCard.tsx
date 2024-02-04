@@ -1,6 +1,7 @@
 import { IProduct } from "../../interfaces";
 import { txtSlicer } from "../../utils/functions";
 import Button from "../Shared/Button";
+import CircleColor from "../Shared/CircleColor";
 import Image from "../Shared/Image";
 
 interface IProps {
@@ -8,9 +9,14 @@ interface IProps {
 }
 
 const ProductCard = ({ product }: IProps) => {
-  const { description, imageURL, price, title, category } = product;
+  const { description, imageURL, price, title, category, colors } = product;
+
+  const renderProductColors = colors.map((color) => (
+    <CircleColor key={color} color={color} />
+  ));
+
   return (
-    <div className="max-w-sm md:max-w-lg mx-auto md:mx-0 border rounded-md p-2 flex flex-col">
+    <div className="max-w-xs md:max-w-lg mx-auto md:mx-0 border rounded-md p-2 flex flex-col">
       <Image
         imageURL={imageURL}
         alt="Product image"
@@ -19,9 +25,7 @@ const ProductCard = ({ product }: IProps) => {
       <h3>{title}</h3>
       <p>{txtSlicer(description)}</p>
       <div className="flex items-center my-4 space-x-2">
-        <span className="w-5 h-5 bg-indigo-600 rounded-full cursor-pointer"></span>
-        <span className="w-5 h-5 bg-yellow-600 rounded-full cursor-pointer"></span>
-        <span className="w-5 h-5 bg-red-600 rounded-full cursor-pointer"></span>
+        {renderProductColors}
       </div>
       <div className="flex items-center justify-between">
         <span className="text-indigo-600 ">${price}</span>
@@ -32,8 +36,8 @@ const ProductCard = ({ product }: IProps) => {
         />
       </div>
       <div className="flex items-center justify-between space-x-2 mt-5">
-        <Button className="bg-indigo-700">Edit</Button>
-        <Button className="bg-red-700">Destroy</Button>
+        <Button className="bg-indigo-600 hover:bg-indigo-700">Edit</Button>
+        <Button className="bg-red-600 hover:bg-red-700">Destroy</Button>
       </div>
     </div>
   );
