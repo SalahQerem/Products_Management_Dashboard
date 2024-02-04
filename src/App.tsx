@@ -68,7 +68,7 @@ const App = () => {
       description: product.description,
       imageURL: product.imageURL,
       price: product.price,
-      colors: product.colors,
+      colors: tempColors,
     });
 
     const hasErrorMsg =
