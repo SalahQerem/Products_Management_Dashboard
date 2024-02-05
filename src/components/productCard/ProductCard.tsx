@@ -12,7 +12,7 @@ interface IProps {
   setTempColors: (colors: string[]) => void;
   setSelectedCategory: (category: ICategory) => void;
   setProductToEditIndex: (index: number) => void;
-  openConfirmModal : () => void;
+  openConfirmModal: () => void;
 }
 
 const ProductCard = ({
@@ -23,7 +23,7 @@ const ProductCard = ({
   setTempColors,
   setSelectedCategory,
   setProductToEditIndex,
-  openConfirmModal
+  openConfirmModal,
 }: IProps) => {
   const { description, imageURL, price, title, category, colors } = product;
 
@@ -42,7 +42,7 @@ const ProductCard = ({
   const removeProduct = () => {
     setProductToEdit(product);
     openConfirmModal();
-  }
+  };
 
   return (
     <div className="max-w-xs md:max-w-lg mx-auto md:mx-0 border rounded-md p-2 flex flex-col space-y-3">
@@ -56,7 +56,7 @@ const ProductCard = ({
         {txtSlicer(description)}
       </p>
       <div className="flex items-center my-4 space-x-1">
-        {renderProductColors}
+        {!colors.length ? <p className="min-h-[20px] font-semibold">No available colors!</p> : renderProductColors}
       </div>
       <div className="flex items-center justify-between">
         <span className="text-indigo-600 font-semibold text-lg">
@@ -78,7 +78,12 @@ const ProductCard = ({
         >
           Edit
         </Button>
-        <Button className="bg-[#c2344d] hover:bg-red-800" onClick={removeProduct}>Remove</Button>
+        <Button
+          className="bg-[#c2344d] hover:bg-red-800"
+          onClick={removeProduct}
+        >
+          Remove
+        </Button>
       </div>
     </div>
   );
