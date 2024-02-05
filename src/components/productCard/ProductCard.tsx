@@ -52,7 +52,7 @@ const ProductCard = ({
         className="rounded-md h-52 w-full lg:object-cover"
       />
       <h3 className="text-lg font-semibold">{title}</h3>
-      <p className="text-sm text-gray-500 break-words">
+      <p className="text-sm text-gray-500 break-words min-h-10">
         {txtSlicer(description)}
       </p>
       <div className="flex items-center my-4 space-x-1">
