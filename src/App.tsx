@@ -61,11 +61,11 @@ const App = () => {
     setIsOpenConfirmModal(true);
   }, []);
 
-  const onChangeAddHandler = (evt: ChangeEvent<HTMLInputElement>) => {
+  const onChangeAddHandler = useCallback((evt: ChangeEvent<HTMLInputElement>) => {
     const { value, name } = evt.target;
-    setProduct({ ...product, [name]: value });
-    setErrors({ ...errors, [name]: "" });
-  };
+    setProduct(prev => ({ ...prev, [name]: value}));
+    setErrors(prev => ({ ...prev, [name]: ""}));
+  }, []);
 
   const onChangeEditHandler = (evt: ChangeEvent<HTMLInputElement>) => {
     const { value, name } = evt.target;
@@ -256,6 +256,7 @@ const App = () => {
       }}
     />
   ));
+
   return (
     <div className="container">
       <Button

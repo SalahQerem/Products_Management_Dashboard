@@ -1,4 +1,4 @@
-import { Fragment } from 'react'
+import { Fragment, memo } from 'react'
 import { Listbox, Transition } from '@headlessui/react'
 import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid'
 import { categories } from '../../data'
@@ -84,4 +84,4 @@ const SelectMenu = ({selected, setSelected} : IProps) => {
   )
 }
 
-export default SelectMenu;
+export default memo(SelectMenu);
