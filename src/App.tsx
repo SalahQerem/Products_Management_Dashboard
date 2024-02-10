@@ -1,4 +1,4 @@
-import { ChangeEvent, FormEvent, useState } from "react";
+import { ChangeEvent, FormEvent, useCallback, useState } from "react";
 import "./App.css";
 import Button from "./components/Shared/Button";
 import Modal from "./components/Shared/Modal";
@@ -45,29 +45,21 @@ const App = () => {
   const [isOpenEditModal, setIsOpenEditModal] = useState(false);
   const [isOpenConfirmModal, setIsOpenConfirmModal] = useState(false);
 
-  const closeAddModal = () => {
-    setIsOpenAddModal(false);
-  };
+  const closeAddModal = () => setIsOpenAddModal(false);
 
-  const openAddModal = () => {
-    setIsOpenAddModal(true);
-  };
+  const openAddModal = () => setIsOpenAddModal(true);
 
-  const closeEditModal = () => {
-    setIsOpenEditModal(false);
-  };
+  const closeEditModal = () => setIsOpenEditModal(false);
 
-  const openEditModal = () => {
+  const openEditModal = useCallback(() => {
     setIsOpenEditModal(true);
-  };
+  }, []);
 
-  const closeConfirmModal = () => {
-    setIsOpenConfirmModal(false);
-  };
+  const closeConfirmModal = () => setIsOpenConfirmModal(false);
 
-  const openConfirmModal = () => {
+  const openConfirmModal = useCallback(() => {
     setIsOpenConfirmModal(true);
-  };
+  }, []);
 
   const onChangeAddHandler = (evt: ChangeEvent<HTMLInputElement>) => {
     const { value, name } = evt.target;
@@ -179,7 +171,9 @@ const App = () => {
   };
 
   const removeProductHandler = () => {
-    const filtered = products.filter((product) => product.id != productToEdit.id);
+    const filtered = products.filter(
+      (product) => product.id != productToEdit.id
+    );
     setProducts(filtered);
     closeConfirmModal();
     toast("Product has been deleted successfully!", {
@@ -194,7 +188,7 @@ const App = () => {
   const cancelRemoveHandler = () => {
     setProductToEdit(defualtProduct);
     closeConfirmModal();
-  }
+  };
 
   const renderProducts = products.map((product, index) => (
     <ProductCard
@@ -203,7 +197,7 @@ const App = () => {
       index={index}
       setProductToEditIndex={setProductToEditIndex}
       setProductToEdit={setProductToEdit}
-      openModalEditModal={openEditModal}
+      openEditModal={openEditModal}
       setTempColors={setTempColors}
       setSelectedCategory={setSelectedCategory}
       openConfirmModal={openConfirmModal}
@@ -354,13 +348,26 @@ const App = () => {
         </form>
       </Modal>
 
-      <Modal isOpen={isOpenConfirmModal}
+      <Modal
+        isOpen={isOpenConfirmModal}
         closeModal={closeConfirmModal}
         title="Are you sure you want to remove this Product from your Store?"
-        description="Deleting this product will remove it permanently from your inventory. Any associated data, sales history, and other related information will also be deleted. Please make sure this is the intended action."> 
+        description="Deleting this product will remove it permanently from your inventory. Any associated data, sales history, and other related information will also be deleted. Please make sure this is the intended action."
+      >
         <div className="flex items-center space-x-2">
-          <Button className="bg-[#c2344d] hover:bg-red-800" onClick={removeProductHandler}>Yes, remove</Button>
-          <Button type="button" className="bg-[#f5f5fa] hover:bg-gray-300 !text-black" onClick={cancelRemoveHandler}>Cancel</Button>
+          <Button
+            className="bg-[#c2344d] hover:bg-red-800"
+            onClick={removeProductHandler}
+          >
+            Yes, remove
+          </Button>
+          <Button
+            type="button"
+            className="bg-[#f5f5fa] hover:bg-gray-300 !text-black"
+            onClick={cancelRemoveHandler}
+          >
+            Cancel
+          </Button>
         </div>
       </Modal>
       <Toaster />

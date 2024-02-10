@@ -3,12 +3,13 @@ import { numberWithCommas, txtSlicer } from "../../utils/functions";
 import Button from "../Shared/Button";
 import CircleColor from "../Shared/CircleColor";
 import Image from "../Shared/Image";
+import {memo} from "react"
 
 interface IProps {
   product: IProduct;
   index: number;
   setProductToEdit: (product: IProduct) => void;
-  openModalEditModal: () => void;
+  openEditModal: () => void;
   setTempColors: (colors: string[]) => void;
   setSelectedCategory: (category: ICategory) => void;
   setProductToEditIndex: (index: number) => void;
@@ -19,7 +20,7 @@ const ProductCard = ({
   product,
   index,
   setProductToEdit,
-  openModalEditModal,
+  openEditModal: openModalEditModal,
   setTempColors,
   setSelectedCategory,
   setProductToEditIndex,
@@ -89,4 +90,4 @@ const ProductCard = ({
   );
 };
 
-export default ProductCard;
+export default memo(ProductCard);
